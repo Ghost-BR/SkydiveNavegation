@@ -46,5 +46,5 @@ class MyApp(App):
         return RootWidget()
 
 
-if __name__ == '__main__':
+if __name__ in ('__main__', '__android__'):
     MyApp().run()
