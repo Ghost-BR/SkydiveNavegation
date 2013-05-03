@@ -1,5 +1,33 @@
 #kivy 1.6
 
 <RootWidget>:
-	Image:
-    	source: 'boituva.png'
+    map: map
+    wind: wind
+    wind_button: wind_button
+    text_area: text_area
+    cols: 1
+
+    BoxLayout:
+        LocationPlace:
+            id: map
+            source: 'boituva.png'
+
+    BoxLayout:
+        size_hint_y: None
+
+        Scatter:
+        	id: wind
+            do_scale: False
+            do_translation: False
+            do_rotation: False
+
+            Button:
+				id: wind_button
+                size_hint_x: 0.1
+                background_normal: 'seta.png'
+                background_down: 'seta.png'
+
+        Label:
+            id: text_area
+            size_hint_x: 0.9
+            text: 'Choose points'
