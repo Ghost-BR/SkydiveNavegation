@@ -23,14 +23,22 @@ class RootWidget(GridLayout):
     wind_button = ObjectProperty(None)
     text_area = ObjectProperty(None)
 
+    def __init__(self, **kw):
+        super(RootWidget, self).__init__(**kw)
+        self.map.bind(points=self.points_added)
+        self.wind_button.bind(on_press=self.change_wind)
+
     def random_wind(self):
         angle = random.randint(0, 359)
         self.wind.rotation = angle
 
     def change_wind(self, *args):
+        self.map.clear_points()
+        self.random_wind()
+
+    def points_added(self, *args):
         if len(self.map.points) > 4:
-            self.map.clear_points()
-            self.random_wind()
+            self.change_wind()
 
 
 class LocationPlace(Image):
@@ -58,8 +66,6 @@ class LocationPlace(Image):
 class MyApp(App):
     def build(self):
         root = RootWidget()
-        root.map.bind(points=root.change_wind)
-        root.wind_button.bind(on_press=root.change_wind)
         root.random_wind()
         return root
 
